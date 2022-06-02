@@ -1,0 +1,48 @@
+<?php require_once __DIR__ . '/_header.php'; ?>
+
+<?php
+function obojaj($status) {
+	if($status === 'open'){
+		return '#0cb500';
+	}
+	return '#d90723';
+}
+
+echo '<h3 style="color:' . obojaj($subject->status) . '">Status:   ' . $subject->status . '</h3>';
+
+?>
+<p>
+    <?php echo $subject->description ?>
+</p>
+<h2>Popis upisanih studenata:</h2>
+<table>
+<tr><th>Student id</th><th>Student name</th></tr>
+<?php 
+
+    foreach( $students as $student )
+	{
+		echo '<tr>' .
+		'<td>' . $student->id . '</td>' .
+		'<td>' . $student->name . '</td>' .
+		'</tr>';
+		
+		
+	}
+?>
+</table>
+
+<?php 
+
+if ($subject->status === 'open'){
+	?>
+	<form method="post" action="index.php?rt=subject/send_application&id_subject=<?php echo $subject->subjectID ?>">
+			
+			<button type="submit" name="gumb" value="send_application">Pošalji zahtjev za pridruživanje!</button>
+            <br />
+            
+	</form>
+	<?php 
+}
+
+
+require_once __DIR__ . '/_footer.php'; ?>
