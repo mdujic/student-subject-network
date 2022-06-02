@@ -1,0 +1,19 @@
+LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/mdujic/student-subject-network/main/data/students.csv?token=GHSAT0AAAAAABRDUWZUHLKQKTB4USM5LG5WYUZHQSQ" AS row
+fieldterminator ","
+CREATE (n:Student)
+SET n = row;
+
+LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/mdujic/student-subject-network/main/data/subjects.csv?token=GHSAT0AAAAAABRDUWZVK2UMJEWPO35J3UQKYUZHTXQ" AS row
+fieldterminator ","
+CREATE (n:Subject)
+SET n = row;
+
+
+
+veze:
+
+LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/mdujic/student-subject-network/main/data/enrolled_in.csv?token=GHSAT0AAAAAABRDUWZUU746JYYHKSIL4TCIYUZHXAQ" AS row
+fieldterminator ","
+MATCH (k:Subject), (s:Student)
+WHERE k.ISVUsifra = row.ISVUsifra AND s.jmbag = row.jmbag
+CREATE (s)-[v:ENROLLED_IN]->(k);
