@@ -15,13 +15,10 @@ class Subject
 	protected $subjectName;
     protected $description;
 	protected $semester;
-    protected $students;
-    protected $teachers;
     protected $status;
+    protected $godina, $obavezni;
 
-
-
-    public function __construct($subjectID= "", $subjectName= "", $description="", $semester="", $students = new Collection(), $teacher = new Collection(), $status="open")
+    public function __construct($subjectID= "", $subjectName= "", $description="", $semester="", $status="open", $godina = "", $obavezni = "")
     {
         $this->subjectID = $subjectID;
         $this->subjectName = $subjectName;
@@ -30,6 +27,8 @@ class Subject
         $this->teacher = $teacher;
         $this->description = $description;
         $this->status = $status;
+        $this->godina = $godina;
+        $this->godina = $obavezni;
     }
 
     function __get($prop) { return $this->$prop; }

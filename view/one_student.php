@@ -21,13 +21,11 @@ echo '<h3 style="color:' . $ime_i_prezime . '</h3>';
 		echo '<tr>' .
 		'<td>' . $predmet -> id . '</td>' .
 		'<td>' . $predmet -> subjectID . '</td>';
-		'</tr>';
-		
-		
+		'</tr>';	
 	}
 ?>
 </table>
 
 <?php 
-    
+
 require_once __DIR__ . '/_footer.php'; ?>
