@@ -10,6 +10,8 @@ SET n = row;
 
 
 
+
+
 veze:
 
 LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/mdujic/student-subject-network/main/data/enrolled_in.csv?token=GHSAT0AAAAAABRDUWZUU746JYYHKSIL4TCIYUZHXAQ" AS row
