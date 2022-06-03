@@ -17,7 +17,7 @@ class SubjectController
 		if(isset($_GET['id_subject'])){
 			$subject = $ser->getSubjectById($_GET['id_project']);
 			$title = $subject->subjectName;
-            $students = $ser->getAllStudentsByIdOfSubject($subject->subjectID);
+            $students = $ser->getStudentsOfSubject($subject->subjectID);
 
 			foreach($students as $student){
 				$student->id = $ser->getStudentById($student->id)->name;
