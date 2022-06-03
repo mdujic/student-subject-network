@@ -12,12 +12,16 @@ use GraphAware\Neo4j\OGM\Common\Collection;
 class Student{
     protected $JMBAG;
     protected $ime, $prezime; 
+    protected $spol, $OIB;
+    protected $datum_rodenja;
 
-
-    public function __construct($JMBAG, $ime, $prezime){
+    public function __construct($JMBAG, $ime, $prezime, $OIB, $spol, $datum_rodenja){
         $this -> JMBAG = $JMBAG;
         $this -> ime = $ime;
         $this -> prezime = $prezime;   
+        $this -> OIB = $OIB;
+        $this -> spol = $spol;
+        $this -> datum_rodenja = $datum_rodenja;   
     }
 
     function __get($prop){
