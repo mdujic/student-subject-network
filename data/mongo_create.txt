@@ -1,0 +1,76 @@
+db.createCollection("subject")
+
+db.subject.insert(
+{"subjectID": 	21498, "subjectName": "Matematička analiza", "description": "Uvesti studente prve godine u osnove matematičke analize na realnom pravcu. U kolegiju će se proučavati realni brojevi, nizovi, konvergencija i neprekidnost","semester": "Winter","students": [],"teachers": ["Vjekoslav Kovač", "Hrvoje Šikić", "Snježana Lubura Strunjak","Igor Ciganović", "Tomislav Kralj", "Mateo Tomašević"], "status": "open"}
+)
+
+db.subject.insert(
+{"subjectID": 21508, "subjectName": "Matematička analiza 2", "description": "","semester": "Summer","students": [],"teachers": ["Vjekoslav Kovač", "Hrvoje Šikić", "Snježana Lubura Strunjak","Igor Ciganović", "Tomislav Kralj"], "status": "open"}
+)
+
+
+db.subject.insert(
+{"subjectID": 21501, "subjectName": "Linearna algebra 1", "description": "Preko jednostavnih primjera (sustavi linearnih jednadžbi) doći do pojmova konačnodimenzionalnog vektorskog prostora, baze, potprostora, matrice, determinante, te inverzne matrice", "semester": "Winter","students": [],"teachers": ["Ljiljana Arambašić", "Damir Bakić", "Tomislav Berić", "Igor Ciganović", "Matko Grbac", "Maja Resman"], "status": "open"}
+)
+
+db.subject.insert(
+{"subjectID": 21515, "subjectName": "Linearna algebra 2", "description": "Cilj kolegija je studente upoznati s elementima teorije linearnih operatora na konačnodimenzionalnom vektorskom (unitarnom) prostoru", "semester": "Winter", "students": [], "teachers": ["Ljiljana Arambašić", "Damir Bakić", "Igor Ciganović", "Denis Husadžić", "Ana Prlić", "Marko Radulović "], "status": "open"}
+)
+
+db.subject.insert(
+{"subjectID": 36901, "subjectName": "Programiranje 1", "description": "Cilj kolegija je upoznavanje s principima rada računala te usvajanje algoritamskog načina razmišljanja i izražavanja. Odabrani su jednostavni problemi (sortiranje, pretraživanje), tako da se sva pažnja može usmjeriti na razvoj algoritama i uočavanje važnosti strukture podataka i vezu algoritam - struktura podataka", "semester": "Winter","students": [],"teachers": ["Marko Horvat", "Matej Mihelčić", "Sebastijan Horvat", "Ivana Šain Glibić"], "status": "open"}
+)
+
+db.subject.insert(
+{"subjectID": 36903, "subjectName": "Programiranje 2", "description": "Upoznavanje studenata s osnovama programiranja u programskom jeziku C","semester": "Summer","students": [],"teachers": ["Matej Mihelčić", "Goranka Nogo", "Adrian Beker", "Sebastijan Horvat", "Ivana Šain Glibić"], "status": "open"}
+)
+
+db.subject.insert(
+{"subjectID": 21504, "subjectName": "Elementarna matematika 1", "description": "Glavni cilj ovog kolegija je ''premostiti'' prazninu između nivoa srednjoškolske matematike i tzv. fakultetske matematike. Studenti će se upoznati s osnovama matematičkog jezika i mišljenja te sistematizirati i produbiti već stečeno znanje o skupovima (brojeva), relacijama i funkcijama. Drugi cilj je detaljno ponoviti polinome (jedne i više varijabli) i racionalne funkcije te uvesti neke nove pojmove vezane uz njih (tzv. algebarski pristup). Posebna pažnja bit će posvećena jednadžbama i nejednadžbama. Bit će dan sustavan i detaljan pregled algebarskih jednadžbi (i trećeg i četvrtog stupnja), racionalnih i tzv. iracionalnih (ne)jednadžbi, jednadžbi i nejednadžbi s apsolutnim vrijednostima, eksponencijalnih i logaritamskih, te trigonometrijskih (ne)jednadžbi", "semester": "Winter","students": [],"teachers": ["Marko Horvat", "Slaven Kožić", "Aleksandar Bulj", "Matea Čelar", "Martina Stojić", "Ivana Šain Glibić"], "status": "open"}
+)
+
+db.subject.insert(
+{"subjectID": 21518, "subjectName": "Elementarna matematika 2", "description": "Cilj kolegija je sistematizirati, produbiti i proširiti znanje studenata o vektorima i analitičkoj geometriji ravnine te upoznati studente s analitičkom geometrijom prostora", "semester": "Summer","students": [],"teachers": ["Tomislav Berić", "Slaven Kožić", "Marija Galić", "Matko Grbac", "Bruno Predojević"], "status": "open"}
+)
+
+db.subject.insert(
+{"subjectID": 186318, "subjectName": "Diferencijalni račun funkcija više varijabli", "description": "U ovom se kolegiju studenti upoznaju sa strukturom euklidskog prostora Rn, neprekidnim vektorskim funkcijama više realnih varijabli, diferencijabilnošću te osnovnim teoremima diferencijalnog računa takvih funkcija. Naglasak je na idejama a ne na količini artificijelnih funkcija i tehničkim trikovima","semester": "Winter","students": [],"teachers": [" Ilja Gogić", "Josip Tambača", "Aleksandar Bulj", "Ljudevit Palle"], "status": "open"}
+)
+
+db.subject.insert(
+{"subjectID": 36904, "subjectName": "Diskretna matematika", "description": "Upoznavanje studenata s osnovnim pojmovima kombinatorne i diskretne matematike te teorije grafova","semester": "Winter","students": [],"teachers": ["Marcela Hanzer", "Tomislav Pejković", "Petar Orlić"], "status": "open"}
+)
+
+db.subject.insert(
+{"subjectID": 24206, "subjectName": "Strukture podataka i algoritmi", "description": "Steći osnovna znanja o apstraktnim tipovima podataka, te o strukturama podataka koje služe za njihovu implementaciju. Upoznati se s osnovnim tehnikama za oblikovanje i analizu algoritama", "semester": "Winter","students": [], "teachers": ["Robert Manger", "Luka Cigler", "Sebastijan Horvat", "Ivana Šain Glibić", "Borna Vukorepa"], "status": "open"}
+)
+
+db.subject.insert(
+{"subjectID": 36905, "subjectName": "Vjerojatnost", "description": "Upoznati studente s osnovama teorije vjerojatnosti","semester": "Winter", "students": [], "teachers": ["Snježana Lubura Strunjak", "Zoran Vondraček", "Adrian Beker", "Nikolina Milinčević", "Hrvoje Planinić"], "status": "open"}
+)
+
+db.subject.insert(
+{"subjectID": 186319, "subjectName": "Integrali funkcija više varijabli", "description": "U ovom se kolegiju studenti upoznaju s višestrukim Riemannovim integralom, te krivuljnim i površinskim integralima. Posebno se obrađuje dvostruki integral i dokazuju osnovni teoremi: Lebesgueova karakterizacija R - integrabilnosti, Fubinijev teorem i teorem o zamjeni varijabli. Obrađuje se integral vektorskih polja i diferencijalnih formi, te se dokazuju klasični teoremi: Greenov, Gauss - Ostrogradskog i Stokesov","semester": "Summer","students": [],"teachers": [" Ilja Gogić", "Josip Tambača", "Aleksandar Bulj", "Petar Kunštek"], "status": "open"}
+)
+
+db.subject.insert(
+{"subjectID": 31427, "subjectName": "Numerička matematika", "description": "Cilj kolegija je studente upoznati s osnovama numeričke matematike. Uvodni dio kolegija vezan je uz metode linearne algebre. Nakon toga slijede klasični problemi aproksimacije funkcija (interpolacija) te numeričko deriviranje i integriranje. Na kraju je dan uvod u problem optimizacije. Od studenata se očekuje samostalna primjena obrađenih metoda", "semester": "Summer","students": [],"teachers": ["Nela Bosner", "Zvonimir Bujanović", "Matko Ljulj", " Ivana Šain Glibić"], "status": "open"}
+)
+
+db.subject.insert(
+{"subjectID": 24207, "subjectName": "Računarski praktikum 1", "description": "Razvijanje vještine programiranja. Usvajanje jednostavne metode za oblikovanje i dokumentiranje programa. Postupno privikavanje na objektni pristup programiranju. Naglasak je na samostalnom radu studenata, te na izradi većih studijskih primjera","semester": "Summer", "students": [],"teachers": ["Goran Igaly", "Matko Ljulj", "Matej Mihelčić", "Borna Vukorepa"], "status": "open"}
+)
+
+db.subject.insert(
+{"subjectID": 92892, "subjectName": "Teorija brojeva", "description": "U kolegiju će se obraditi osnovni pojmovi iz elementarne teorije brojeva, te izabrane teme iz ostalih područja teorije brojeva", "semester": "Summer","students": [],"teachers": ["Andrej Dujella", "Filip Najman", " Tomislav Gužvić", "Antonela Trbović"], "status": "open"}
+)
+
+db.subject.insert(
+{"subjectID":, "subjectName": , "description": ,"semester": ,"students": [],"teachers": , "status": "open"}
+)
+
+db.subject.insert(
+{"subjectID":, "subjectName": , "description": ,"semester": ,"students": [],"teachers": , "status": "open"}
+)
+
+
