@@ -8,19 +8,19 @@ class Service
 	{
 		try
 		{
-			$db = DB::getConnection();
-			$st = $db->prepare( 'SELECT * FROM dz2_projects ORDER BY title' );
-			$st->execute();
+            $em = DB::getConnection();
+			$query = $em->createQuery("MATCH (s:Subject) RETURN s");
+			$result = $query->execute()[0];
 		}
 		catch( PDOException $e ) { exit( 'PDO error ' . $e->getMessage() ); }
 
-		$arr = array();
-		while( $row = $st->fetch() )
-		{
-			$arr[] = new Project( $row['id'], $row['id_user'], $row['title'], $row['abstract'], $row['number_of_members'], $row['status'], $this->getUserById( $row['id_user'] )->username  );
-		}
+		$arr = null;
+		foreach($result as $node) {
+            $arr[] = new Subject($node["ISVUsifra"], $node["imePredmeta"], "", $node["semestar"], "",
+            $node["godina"], $node["obavezni"]); 
+        }
 
-		return $arr;
+		return $stud;
 	}
     
 
@@ -28,38 +28,41 @@ class Service
 	{
 		try
 		{
-			$db = DB::getConnection();
-			$st = $db->prepare( 'SELECT * FROM loans WHERE id=:id' );
-			$st->execute( array( 'id' => $id ) );
+			$m = new MongoClient();
+            $db = $m->nbp;
+            $subject = $db->subject;
+            $query = array(
+                "subjectID" => $id
+            );
+            $cursor = $subject->find($query);
 		}
-		catch( PDOException $e ) { exit( 'PDO error ' . $e->getMessage() ); }
+		catch( Exception $e ) { exit( 'PDO error ' . $e->getMessage() ); }
+        $sub = null;
+		foreach($cursor as $document) {
+            $sub = new Subject($document['subjectID'], $document['subjectName'], $document['description'], $document['semester'], $document['status'], $document['godina'], $document['obavezni']);
+        }
 
-		$arr = array();
-		while( $row = $st->fetch() )
-		{
-			$arr[] = new Member( $row['id'], $row['id_project'], $row['id_user'], $row['member_type'], $this->getUserById( $id )->username );
-		}
-
-		return $arr;
+		return $sub;
 	}
 
-	function getStudentById( $id )
+	function getStudentById( $jmbag_student )
 	{
 		try
 		{
-			$db = DB::getConnection();
-			$st = $db->prepare( 'SELECT * FROM loans WHERE id=:id' );
-			$st->execute( array( 'id' => $id ) );
+            $em = DB::getConnection();
+			$query = $em->createQuery("MATCH (stud:Student) WHERE stud.jmbag={studentJMBAG} RETURN stud");
+			$query->setParameter("studentJMBAG", $jmbag_student);
+			$result = $query->execute()[0];
 		}
 		catch( PDOException $e ) { exit( 'PDO error ' . $e->getMessage() ); }
 
-		$arr = array();
-		while( $row = $st->fetch() )
-		{
-			$arr[] = new Member( $row['id'], $row['id_project'], $row['id_user'], $row['member_type'], $this->getUserById( $id )->username );
-		}
+		$stud = null;
+		foreach($result as $node) {
+            $stud = new Student($node["jmbag"], $node["ime"], $node["prezime"], $node["oib"], $node["spol"],
+            $node["datumRođenja"], $node["aai"]); 
+        }
 
-		return $arr;
+		return $stud;
 	}
 
     function getStudentsOfSubject( $subjectId )
@@ -67,49 +70,39 @@ class Service
 
 		try
 		{
-			$db = DB::getConnection();
-			$st = $db->prepare( 'SELECT DISTINCT id_project
-								 FROM dz2_projects
-								 LEFT JOIN dz2_members
-								 ON dz2_projects.id = dz2_members.id_project
-								 WHERE dz2_members.id_user=:id_user
-								 	AND	( member_type=:m1 OR member_type=:m2 OR member_type=:m3 )' );
-			$st->execute( array( 'id_user' => $subjectId, 'm1' => 'member', 'm2' => 'application_accepted', 'm3' => 'invitation_accepted' ) );
+            $em = DB::getConnection();
+			$query = $em->createQuery("MATCH (s:Subject)--(stud:Student) WHERE s.ISVUsifra={subjectId} RETURN stud");
+			$query->setParameter("subjectId", $subjectId);
+			$result = $query->execute()[0];
 		}
 		catch( PDOException $e ) { exit( 'PDO error ' . $e->getMessage() ); }
 
 		$arr = array();
-		while( $row = $st->fetch() )
-		{
-			$project = $this->getProjectById( $row['id_project'] );
-			$arr[] = new Project( $project->id, $project->id_user, $project->title, $project->abstract, $project->number_of_members, $project->status, $project->author );
-		}
+		foreach($result as $node) {
+            $arr[] = new Student($node["jmbag"], $node["ime"], $node["prezime"], $node["oib"], $node["spol"],
+            $node["datumRođenja"], $node["aai"]); 
+        }
 
 		return $arr;
 	}
 
-	function getMySubjects( $id_student )
+	function getMySubjects( $jmbag_student )
 	{
 
 		try
 		{
-			$db = DB::getConnection();
-			$st = $db->prepare( 'SELECT DISTINCT id_project
-								 FROM dz2_projects
-								 LEFT JOIN dz2_members
-								 ON dz2_projects.id = dz2_members.id_project
-								 WHERE dz2_members.id_user=:id_user
-								 	AND	( member_type=:m1 OR member_type=:m2 OR member_type=:m3 )' );
-			$st->execute( array( 'id_user' => $id_student, 'm1' => 'member', 'm2' => 'application_accepted', 'm3' => 'invitation_accepted' ) );
+            $em = DB::getConnection();
+			$query = $em->createQuery("MATCH (s:Subject)--(stud:Student) WHERE stud.jmbag={studentJMBAG} RETURN s");
+			$query->setParameter("studentJMBAG", $jmbag_student);
+			$result = $query->execute()[0];
 		}
 		catch( PDOException $e ) { exit( 'PDO error ' . $e->getMessage() ); }
 
 		$arr = array();
-		while( $row = $st->fetch() )
-		{
-			$project = $this->getProjectById( $row['id_project'] );
-			$arr[] = new Project( $project->id, $project->id_user, $project->title, $project->abstract, $project->number_of_members, $project->status, $project->author );
-		}
+		foreach($result as $node) {
+            $arr[] = new Subject($node["ISVUsifra"], $node["imePredmeta"], "", $node["semestar"], "",
+             $node["godina"], $node["obavezni"]); 
+        }
 
 		return $arr;
 	}
