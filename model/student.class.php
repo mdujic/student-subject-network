@@ -14,7 +14,7 @@ class Student{
     protected $ime, $prezime; 
     protected $spol, $OIB;
     protected $datum_rodenja;
-
+    
     public function __construct($JMBAG, $ime, $prezime, $OIB, $spol, $datum_rodenja){
         $this -> JMBAG = $JMBAG;
         $this -> ime = $ime;

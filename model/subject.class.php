@@ -11,19 +11,12 @@ use GraphAware\Neo4j\OGM\Common\Collection;
  */
 class Subject
 {
-
     protected $subjectID;
-
 	protected $subjectName;
-	
     protected $description;
-
 	protected $semester;
-
     protected $students;
-
     protected $teachers;
-    
     protected $status;
 
 

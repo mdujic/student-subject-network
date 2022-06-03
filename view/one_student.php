@@ -29,5 +29,5 @@ echo '<h3 style="color:' . $ime_i_prezime . '</h3>';
 </table>
 
 <?php 
-
+    
 require_once __DIR__ . '/_footer.php'; ?>
