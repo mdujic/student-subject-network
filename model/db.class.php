@@ -1,6 +1,6 @@
 <?php
 
-require_once "vendor/autoload.php";
+require_once "../vendor/autoload.php";
 
 use GraphAware\Neo4j\OGM\EntityManager;
 
@@ -18,7 +18,7 @@ class DB
 	    try
 	    {
         DB::$em = EntityManager::create(
-          "http://neo4j:@localhost:7474");
+          "http://neo4j:nbp@localhost:7474");
 		  }
 		  catch (Exception $e) { exit ("Error: " . $e->getMessage()); }
 	  }
