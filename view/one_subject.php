@@ -18,12 +18,11 @@ echo '<h3 style="color:' . obojaj($subject->status) . '">Status:   ' . $subject-
 <table>
 <tr><th>Student id</th><th>Student name</th></tr>
 <?php 
-
     foreach( $students as $student )
 	{
 		echo '<tr>' .
-		'<td>' . $student->id . '</td>' .
-		'<td>' . $student->name . '</td>' .
+		'<td>' . $student->JMBAG . '</td>' .
+		'<td>' . $student->ime . '</td>' .
 		'</tr>';
 		
 		

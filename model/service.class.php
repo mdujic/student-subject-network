@@ -76,17 +76,15 @@ class Service
 		{
             $em = DB::getConnection();
 			$query = $em->createQuery("MATCH (s:Subject)--(stud:Student) WHERE s.ISVUsifra={subjectId} RETURN stud");
-			$query->setParameter("subjectId", $subjectId);
-			$result = $query->execute()[0];
+			$query->setParameter("subjectId", strval($subjectId));
+			$result = $query->execute();
 		}
 		catch( PDOException $e ) { exit( 'PDO error ' . $e->getMessage() ); }
-
 		$arr = array();
 		foreach($result as $node) {
-            $arr[] = new Student($node["jmbag"], $node["ime"], $node["prezime"], $node["oib"], $node["spol"],
-            $node["datumRođenja"], $node["aai"]); 
+            $arr[] = new Student($node['stud']->value('jmbag'), $node['stud']->value("ime"), $node['stud']->value("prezime"), $node['stud']->value("oib"), $node['stud']->value("spol"),
+			$node['stud']->value("datumRođenja(MM/DD/GG)"), $node['stud']->value("aai"));
         }
-
 		return $arr;
 	}
 

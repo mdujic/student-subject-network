@@ -17,11 +17,9 @@ class SubjectController
 		if(isset($_GET['id_subject'])){
 			$subject = $ser->getSubjectById($_GET['id_project']);
 			$title = $subject->subjectName;
-            //$students = $ser->getStudentsOfSubject($subject->subjectID);
-//
-			//foreach($students as $student){
-			//	$student->id = $ser->getStudentById($student->id)->name;
-			//}
+            $students = $ser->getStudentsOfSubject($subject->subjectID);
+			print(count($students));
+	
             
 			require_once __DIR__ . '/../view/one_subject.php';
 		}else{

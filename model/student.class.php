@@ -1,14 +1,6 @@
 <?php
 
-//namespace Ispitomat;
 
-use GraphAware\Neo4j\OGM\Annotations as OGM;
-use GraphAware\Neo4j\OGM\Common\Collection;
-
-/**
- *
- * @OGM\Node(label="Subject")
- */
 class Student{
     protected $JMBAG;
     protected $ime, $prezime; 
@@ -36,5 +28,6 @@ class Student{
         return $this;
     }
 }
+
 
 ?>
