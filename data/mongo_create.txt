@@ -1,6 +1,10 @@
 db.createCollection("subject")
 
 db.subject.insert(
+{"subjectID": 92978, "subjectName": "Građa računala", "description": "Upoznati se s građom i načinom rada suvremenog računala, te s principima programiranja u assembleru.", "semester": "Winter", "status": "open"}
+)
+
+db.subject.insert(
 {"subjectID": 	21498, "subjectName": "Matematička analiza", "description": "Uvesti studente prve godine u osnove matematičke analize na realnom pravcu. U kolegiju će se proučavati realni brojevi, nizovi, konvergencija i neprekidnost","semester": "Winter","students": [],"teachers": ["Vjekoslav Kovač", "Hrvoje Šikić", "Snježana Lubura Strunjak","Igor Ciganović", "Tomislav Kralj", "Mateo Tomašević"], "status": "open"}
 )
 

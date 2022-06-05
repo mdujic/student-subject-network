@@ -1,5 +1,10 @@
 <?php
 
+require_once __DIR__ . '/subject.class.php';
+require_once __DIR__ . '/student.class.php';
+require_once __DIR__ . '/db.class.php';
+
+
 class Service 
 {
 
@@ -10,17 +15,17 @@ class Service
 		{
             $em = DB::getConnection();
 			$query = $em->createQuery("MATCH (s:Subject) RETURN s");
-			$result = $query->execute()[0];
+			$result = $query->execute();
 		}
 		catch( PDOException $e ) { exit( 'PDO error ' . $e->getMessage() ); }
 
 		$arr = null;
 		foreach($result as $node) {
-            $arr[] = new Subject($node["ISVUsifra"], $node["imePredmeta"], "", $node["semestar"], "",
-            $node["godina"], $node["obavezni"]); 
+            $arr[] = new Subject($node['s']->value('ISVUsifra'), $node['s']->value('imePredmeta'), "", $node['s']->value('semestar'), "",
+    		$node['s']->value('godina'), $node['s']->value('obavezni'));  
         }
 
-		return $stud;
+		return $arr;
 	}
     
 
@@ -28,18 +33,17 @@ class Service
 	{
 		try
 		{
-			$m = new MongoClient();
-            $db = $m->nbp;
-            $subject = $db->subject;
-            $query = array(
-                "subjectID" => $id
-            );
-            $cursor = $subject->find($query);
+			$m = new MongoDB\Driver\Manager('mongodb://localhost:27017');
+            $filter= array('subjectID'=>92978);
+        $options = array('limit'=>1);
+        $query = new MongoDB\Driver\Query($filter, $options);
+        $cursor = $m->executeQuery('nbp.subject', $query);
+        
 		}
 		catch( Exception $e ) { exit( 'PDO error ' . $e->getMessage() ); }
         $sub = null;
 		foreach($cursor as $document) {
-            $sub = new Subject($document['subjectID'], $document['subjectName'], $document['description'], $document['semester'], $document['status'], $document['godina'], $document['obavezni']);
+            $sub = new Subject($document->subjectID, $document->subjectName, $document->description, $document->semester, $document->status, "", "");
         }
 
 		return $sub;
@@ -110,6 +114,5 @@ class Service
 
 	
 };
-
 ?>
 
