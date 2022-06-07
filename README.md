@@ -5,7 +5,7 @@ project assignment from Advanced Database Systems
 
 # installation of composer2
 
-sudo apt install composer
+sudo apt install composer  
 
 
 curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer2
@@ -21,7 +21,7 @@ docker run     --name neo4j     -p7474:7474 -p7687:7687     -d     -v $HOME/neo4
 
 # instalation of php-mongodb
 
-sudo apt install php7.4-mongodb
+sudo apt install php7.4-mongodb  
 sudo systemctl restart apache2
 
 # launching mongodb database:
