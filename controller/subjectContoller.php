@@ -1,6 +1,5 @@
 <?php
-
-require_once "model/service.class.php";
+/*
 
 class SubjectController
 {
@@ -9,7 +8,6 @@ class SubjectController
         $ser = new Service();
         $title = "Popis svih predmeta";
         $popisPredmeta = $ser->getAllSubjects();
-		require_once __DIR__ . '/../view/subject_index.php';
 	}
 
 	public function showSubjectId() {
@@ -23,12 +21,11 @@ class SubjectController
 				$student->id = $ser->getStudentById($student->id)->name;
 			}
             
-			require_once __DIR__ . '/../view/one_subject.php';
 		}else{
 			$this->index();
 		}
 	}
 
 }
-
+*/
 ?>

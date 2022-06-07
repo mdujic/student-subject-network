@@ -1,7 +1,6 @@
-<?php require_once __DIR__ . '/_header.php'; ?>
+<?php require_once __SITE_PATH . '/view/_header.php'; ?>
 
-	<nav>
-		<ul>
+<ul>
 	<?php 
 
 		if ($subjectList === null) {
@@ -14,6 +13,6 @@
 		        }
         }
 	?>
-  </ul>
-	</nav>
-<?php require_once __DIR__ . '/_footer.php'; ?>
+</ul>
+
+<?php require_once __SITE_PATH . '/view/_footer.php'; ?>

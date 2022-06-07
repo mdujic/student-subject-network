@@ -1,10 +1,5 @@
 <?php
 
-require_once __DIR__ . '/subject.class.php';
-require_once __DIR__ . '/student.class.php';
-require_once __DIR__ . '/db.class.php';
-
-
 class Service 
 {
 
@@ -13,16 +8,16 @@ class Service
 	{
 		try
 		{
-            $em = DB::getConnection();
+			$em = DB_NEO4J::getConnection();
 			$query = $em->createQuery("MATCH (s:Subject) RETURN s");
 			$result = $query->execute();
 		}
 		catch( PDOException $e ) { exit( 'PDO error ' . $e->getMessage() ); }
-
+		
 		$arr = null;
 		foreach($result as $node) {
-            $arr[] = new Subject($node['s']->value('ISVUsifra'), $node['s']->value('imePredmeta'), "", $node['s']->value('semestar'), "",
-    		$node['s']->value('godina'), $node['s']->value('obavezni'));  
+			$arr[] = new Subject($node['s']->value('ISVUsifra'), $node['s']->value('imePredmeta'), "", $node['s']->value('semestar'), "",
+    		$node['s']->value('godina'), $node['s']->value('obavezni'));
         }
 
 		return $arr;
@@ -53,7 +48,7 @@ class Service
 	{
 		try
 		{
-            $em = DB::getConnection();
+            $em = DB_NEO4J::getConnection();
 			$query = $em->createQuery("MATCH (stud:Student) WHERE stud.jmbag={studentJMBAG} RETURN stud");
 			$query->setParameter("studentJMBAG", $jmbag_student);
 			$result = $query->execute()[0];
@@ -74,7 +69,7 @@ class Service
 
 		try
 		{
-            $em = DB::getConnection();
+            $em = DB_NEO4J::getConnection();
 			$query = $em->createQuery("MATCH (s:Subject)--(stud:Student) WHERE s.ISVUsifra={subjectId} RETURN stud");
 			$query->setParameter("subjectId", strval($subjectId));
 			$result = $query->execute();
@@ -93,7 +88,7 @@ class Service
 
 		try
 		{
-            $em = DB::getConnection();
+            $em = DB_NEO4J::getConnection();
 			$query = $em->createQuery("MATCH (s:Subject)--(stud:Student) WHERE stud.jmbag={studentJMBAG} RETURN s");
 			$query->setParameter("studentJMBAG", $jmbag_student);
 			$result = $query->execute()[0];

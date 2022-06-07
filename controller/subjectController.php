@@ -1,17 +1,15 @@
 <?php
 
-require_once __DIR__ . '/../model/service.class.php';
-
-class SubjectController
+class SubjectController extends BaseController
 {
 	public function index()
 	{
         $ser = new Service();
-        $title = "Popis svih predmeta";
-        $subjectList = $ser->getAllSubjects();
-		require_once __DIR__ . '/../view/subject_index.php';
+        $this->registry->template->title = "Popis svih predmeta";
+		$this->registry->template->subjectList = $ser->getAllSubjects();
+		$this->registry->template->show( 'subject_index' );
 	}
-
+/*
 	public function showSubjectId() {
 		$ser = new Service();
 		if(isset($_GET['id_subject'])){
@@ -21,12 +19,11 @@ class SubjectController
 			print(count($students));
 	
             
-			require_once __DIR__ . '/../view/one_subject.php';
 		}else{
 			$this->index();
 		}
 	}
-
+*/
 }
 
 ?>
