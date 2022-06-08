@@ -1,0 +1,3 @@
+//ovo se unese taman prije otvaranje baze
+
+mongoimport -d nbp -c subject --type csv --file mongo_subject.csv --headerline
