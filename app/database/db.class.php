@@ -50,4 +50,25 @@ class DB_NEO4J
   }
 }
 
+class DB_MONGO
+{
+  private static $em = null;
+
+  private function __construct() { }
+	private function __clone() { }
+
+  public static function getConnection()
+	{
+		if (DB_MONGO::$em === null)
+	  {
+	    try
+	    {
+        	DB_MONGO::$em = new MongoDB\Driver\Manager('mongodb://localhost:27017');
+		}
+		catch (Exception $e) { exit ("Error: " . $e->getMessage()); }
+	  }
+    return DB_MONGO::$em;
+  }
+}
+
 ?>

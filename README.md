@@ -59,5 +59,6 @@ If you did't run mongo and neo4j container go and do 8. and 10. step from [Setup
 1. Move this project to your `public_html` directory
 2. Go in browser on [localhost/~username/student-subject-directory](http://localhost/~username/student-subject-directory)
 
+sudo docker exec -it mongo_nbp mongo
 
 

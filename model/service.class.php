@@ -28,17 +28,17 @@ class Service
 	{
 		try
 		{
-			$m = new MongoDB\Driver\Manager('mongodb://localhost:27017');
-            $filter= array('subjectID'=>92978);
-        $options = array('limit'=>1);
-        $query = new MongoDB\Driver\Query($filter, $options);
-        $cursor = $m->executeQuery('nbp.subject', $query);
+			$m = DB_MONGO::getConnection();
+            $filter= array('ISVUsifra'=>(int)$id);
+			$options = array('limit'=>1);
+			$query = new MongoDB\Driver\Query($filter, $options);
+			$cursor = $m->executeQuery('nbp.subject', $query);
         
 		}
 		catch( Exception $e ) { exit( 'PDO error ' . $e->getMessage() ); }
-        $sub = null;
-		foreach($cursor as $document) {
-            $sub = new Subject($document->subjectID, $document->subjectName, $document->description, $document->semester, $document->status, "", "");
+			$sub = null;
+			foreach($cursor as $document) {
+				$sub = new Subject($document->ISVUsifra, $document->imePredmeta, $document->opis, $document->semestar, $document->status, $document->godina, $document->obavezni);
         }
 
 		return $sub;
