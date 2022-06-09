@@ -8,20 +8,22 @@ function obojaj($status) {
 	return '#d90723';
 }
 
-echo '<h3 style="color:' . $ime_i_prezime . '</h3>';
+echo '<h3> Ja sam ' . $ime_i_prezime . '</h3>';
 
 ?>
-
-<h2>Popis predmeta ovog studenta: </h2>
+<h2>Popis mojih predmeta: </h2>
 <table>
-<tr><th>SubjectID</th><th>Ime predmeta</th></tr>
+<tr><th>SubjectID</th><th>Ime predmeta</th><th>Kolegij prijatelj</th></tr>
 
-<?php 
-    foreach($predmeti as $predmet){
+<?php
+  $i = 0;
+  foreach($predmeti as $predmet){
 		echo '<tr>' .
-		'<td>' . $predmet -> id . '</td>' .
-		'<td>' . $predmet -> subjectID . '</td>';
-		'</tr>';	
+		'<td>' . $predmet -> subjectName . '</td>' .
+    '<td>' . $predmet -> subjectID . '</td>' .
+    '<td>' . $preporuka[$i] -> subjectName . '</td>' .
+    '</tr>';
+    $i++;  
 	}
 ?>
 </table>

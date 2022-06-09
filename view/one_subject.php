@@ -22,10 +22,8 @@ echo '<h3 style="color:' . obojaj($subject->status) . '">Status:   ' . $subject-
 	{
 		echo '<tr>' .
 		'<td>' . $student->JMBAG . '</td>' .
-		'<td>' . $student->ime . '</td>' .
+		'<td>' . $student->ime . ' ' . $student -> prezime . '</td>';
 		'</tr>';
-		
-		
 	}
 ?>
 </table>

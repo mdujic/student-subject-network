@@ -90,17 +90,54 @@ class Service
 		{
             $em = DB_NEO4J::getConnection();
 			$query = $em->createQuery("MATCH (s:Subject)--(stud:Student) WHERE stud.jmbag={studentJMBAG} RETURN s");
-			$query->setParameter("studentJMBAG", $jmbag_student);
-			$result = $query->execute()[0];
+			$query->setParameter("studentJMBAG", strval($jmbag_student));
+			$result = $query->execute();
+		}
+		catch( PDOException $e ) { exit( 'PDO error ' . $e->getMessage() ); }
+
+        //print_r($result);
+
+		$arr = array();
+		foreach($result as $node) {
+			$isvu_predmet = $node['s'] -> value('ISVUsifra');
+			$ime_predmeta = $node['s'] -> value('imePredmeta');
+			$semestar = $node['s'] -> value('semestar');
+			$godina = $node['s'] -> value('godina');
+			$obavezni = $node['s'] -> value('obavezni');
+            $cur = new Subject($isvu_predmet, $ime_predmeta, "", $semestar, "", $godina, $obavezni);
+            $arr[] = $cur;
+        }
+		return $arr;
+	}
+
+	function recommendMeSubject($my_jmbag, $sourceSubjectIsvu){
+		//source subject isvu je predmet na temelju kojeg dajem preporuku
+		try{
+            $em = DB_NEO4J::getConnection();
+			$query = $em -> createQuery("match(ja:Student{jmbag:  {studentJMBAG}}) - [:ENROLLED_IN] -> (predmet:Subject{ISVUsifra: {source_id}}) - [:ENROLLED_IN] - (student:Student) - [:ENROLLED_IN] -> (popularni:Subject)
+				where student <> ja
+				and not	(ja) - [:ENROLLED_IN] -> (popularni)
+				return popularni, count(distinct(student)) as freq
+				order by freq desc
+				limit 1;");
+			$query -> setParameter("studentJMBAG", $my_jmbag);
+			$query -> setParameter("source_id", strval($sourceSubjectIsvu));
+			$result = $query->execute();
 		}
 		catch( PDOException $e ) { exit( 'PDO error ' . $e->getMessage() ); }
 
 		$arr = array();
+		//echo 'veliko je ' . count($result);
 		foreach($result as $node) {
-            $arr[] = new Subject($node["ISVUsifra"], $node["imePredmeta"], "", $node["semestar"], "",
-             $node["godina"], $node["obavezni"]); 
+			$isvu_predmet = $node['popularni'] -> value('ISVUsifra');
+			$ime_predmeta = $node['popularni'] -> value('imePredmeta');
+			$semestar = $node['popularni'] -> value('semestar');
+			$godina = $node['popularni'] -> value('godina');
+			$obavezni = $node['popularni'] -> value('obavezni');
+            
+            $arr[] = new Subject($isvu_predmet, $ime_predmeta, "", $semestar, "", $godina, $obavezni); 
         }
-
+        //print_r($result);
 		return $arr;
 	}
 
