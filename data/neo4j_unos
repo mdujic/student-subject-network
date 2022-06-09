@@ -8,7 +8,10 @@ fieldterminator ","
 CREATE (n:Subject)
 SET n = row;
 
-
+LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/mdujic/student-subject-network/main/data/teachers.csv?token=GHSAT0AAAAAABRDUWZVK2UMJEWPO35J3UQKYUZHTXQ" AS row
+fieldterminator ","
+CREATE (n:Teacher)
+SET n = row;
 
 
 
@@ -19,3 +22,9 @@ fieldterminator ","
 MATCH (k:Subject), (s:Student)
 WHERE k.ISVUsifra = row.ISVUsifra AND s.jmbag = row.jmbag
 CREATE (s)-[v:ENROLLED_IN]->(k);
+
+LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/mdujic/student-subject-network/main/data/teachersubject_relations.csv?token=GHSAT0AAAAAABRDUWZUU746JYYHKSIL4TCIYUZHXAQ" AS row
+fieldterminator ","
+MATCH (k:Subject), (t:Teacher)
+WHERE k.ISVUsifra = row.ISVUsifra AND t.oib = row.oib
+CREATE (s)-[v:TEACHES]->(k);
