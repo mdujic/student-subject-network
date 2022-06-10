@@ -39,22 +39,6 @@ class SubjectController extends BaseController
 		}
 	}
 
-	public function mySubjects(){
-		$moj_jmbag = '1191242519';
-		$predmet = '92978';
-		$ser = new Service();
-		$my_subjects = $ser -> getMySubjects($moj_jmbag);
-			$this -> registry -> template -> predmeti = $my_subjects;
-		$this -> registry -> template -> ime_i_prezime = $moj_jmbag;
-		$preporuke = array();
-		foreach($my_subjects as $subj){
-			$best = $ser -> recommendMeSubject($moj_jmbag, $subj -> subjectID);
-			$best = $best[0];
-			$preporuke[] = $best;
-		}
-		$this -> registry -> template -> preporuka = $preporuke;
-		$this -> registry -> template -> show( 'one_student' );
-	}
 
 }
 
