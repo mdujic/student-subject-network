@@ -1,17 +1,14 @@
-#!/usr/bin/python3
+#!/usr/bin/python3.8
 import sys
 from sklearn.feature_extraction.text import TfidfVectorizer
 from pymongo import MongoClient
 from bson import json_util
 import json
 import pandas as pd
-
-print('tu sam')
 MONGODB_HOST = 'localhost'
 MONGODB_PORT = 27017
 DB_NAME = 'nbp'
 COLLECTION_NAME = 'subject'
-
 def getData():
     connection = MongoClient(MONGODB_HOST, MONGODB_PORT)
     collection = connection[DB_NAME][COLLECTION_NAME]
@@ -28,7 +25,6 @@ ret = getData()
 df = pd.read_json(ret)
 df = df[['ISVUsifra', 'imePredmeta', 'opis']]
 df = df[df.opis != 'Nema opis']
-
 tfidf = TfidfVectorizer()
 tfidf_matrix = tfidf.fit_transform(df['opis'])
     

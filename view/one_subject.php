@@ -43,16 +43,6 @@ echo '<h3 style="color:' . obojaj($subject->status) . '">Status:   ' . $subject-
 
 <?php 
 
-if ($subject->status === 'open'){
-	?>
-	<form method="post" action="index.php?rt=subject/send_application&id_subject=<?php echo $subject->subjectID ?>">
-			
-			<button type="submit" name="gumb" value="send_application">Pošalji zahtjev za pridruživanje!</button>
-            <br />
-            
-	</form>
-	<?php 
-}
 
 
 require_once __DIR__ . '/_footer.php'; ?>

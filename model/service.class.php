@@ -95,7 +95,6 @@ class Service
 
 		$stud = null;
 		foreach($result as $node) {
-			echo "tu sam";
             $stud = new Student($node['s']->value('jmbag'), $node['s']->value('ime'), $node['s']->value('prezime'), $node['s']->value('oib'), $node['s']->value('spol'),
             $node['s']->value('datumRođenja(MM/DD/GG)'), $node['s']->value('aai'));
         }

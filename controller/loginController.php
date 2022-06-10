@@ -19,31 +19,9 @@ class LoginController extends BaseController
 		}
 		else
 		{
-			// Dakle dobro je korisničko ime. 
-			// Provjeri taj korisnik postoji u bazi; dohvati njegove ostale podatke.
-			$user = $tuf->getUserByUsername( $_POST['username'] );
-			
-			if( $user === null )
-			{
-				$this->registry->template->title = 'User with that name doesn\'t exist.';
-				$this->registry->template->show( 'login_form' );
-			}
-			else if( $user->has_registered === '0' )
-			{
-				$this->registry->template->title = 'User with that name has not been registered yet. Check your e-mail.';
-				$this->registry->template->show( 'login_form' );	
-			}
-			else if( !password_verify( $_POST['password'], $user->password_hash ) )
-			{
-				$this->registry->template->title = 'You entered wrong password.';
-				$this->registry->template->show( 'login_form' );
-			}
-			else
-			{
-				// Sad je valjda sve OK. Ulogiraj ga.
-				$_SESSION['username'] = $_POST['username'];
-				$this->registry->template->title = 'You have successfully logged in.';
-				$this->registry->template->show( 'logged_in' );
+			if($_POST['username'] === 'admin' && $_POST['password'] === '1234'){
+				$_SESSION['username'] = "admin";
+				header( 'Location: ' . __SITE_URL . '/index.php?rt=subject' );
 			}
 		}
 	}

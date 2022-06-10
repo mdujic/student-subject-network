@@ -19,7 +19,13 @@
 		<li><a href="index.php?rt=subject">Popis svih predmeta</a></li>
 		<li><a href="index.php?rt=teacher">Popis svih profesora</a></li>
 		<li><a href="index.php?rt=student">Popis svih studenata</a></li>
-		<li><a href="index.php?rt=logout">Odjavi se!</a></li>
+		<li><a href="index.php?rt=login">Prijavi se!</a></li>
+		<?php 
+			if ($_SESSION['username'] == 'admin'){
+				echo '<li><a href="index.php?rt=logout">Odjavi se!</a></li>';
+				echo '<li><a href="index.php?rt=connections">Upisi</a></li>';
+			}
+		?>
 	</ul>
 	
 	<h1><?php echo $title; ?></h1>

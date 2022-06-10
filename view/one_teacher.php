@@ -14,7 +14,8 @@
   foreach($predmeti as $predmet){
 		echo '<tr>' .
 		'<td>' . '<a href="index.php?rt=subject/showSubjectId&id_subject=' . $predmet -> subjectID . '">' .
-		$predmet -> subjectName . '</a>' . '</td>';  
+		$predmet -> subjectName . '</a>' . '</td>' .
+		'<td>' . $predmet -> subjectID . '</td>';  
 	}
 ?>
 </table>
