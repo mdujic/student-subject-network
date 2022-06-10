@@ -15,6 +15,7 @@ echo '<h3 style="color:' . obojaj($subject->status) . '">Status:   ' . $subject-
     <?php echo $subject->description ?>
     <h2>Možda želite upisati i sljedeće predmete: </h2>
     <table>
+	<tr><th>Ime predmeta</th><th>ISVU šifra</th><th>
     <?php
 	 	foreach($similar_subjects as $predmet){
 			echo '<tr>' .
