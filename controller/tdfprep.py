@@ -42,7 +42,7 @@ def get_recommendations(ISVUsifra, cosine_sim = cosine_sim):
     sim_scores = sorted(sim_scores, key = lambda x: x[1], reverse = True)
     sim_scores = sim_scores[1:NUM_OF_RECOMM + 1]
     imp_indices = [i[0] for i in sim_scores]
-    return df['ISVUsifra'].iloc[movie_indices]
+    return df['ISVUsifra'].iloc[imp_indices]
 
 #ID = 92978
 ID = int(sys.argv[1])
