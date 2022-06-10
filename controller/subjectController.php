@@ -22,7 +22,6 @@ class SubjectController extends BaseController
             //echo 'pokrecem ' . 'python3 tdfprep.py ' . $input;
             //$command = escapeshellcmd('tdfprep.py ' . $input);
             $mycom = exec('python3 ' . __DIR__ . '/tdfprep.py ' . $input);
-			//$output = exec('/usr/bin/env/python3 /home/jurica/kurac.py');
 			//$output = exec('python3 /home/jurica/tdfprep.py');
 			$polje = explode('/', $mycom); 
 			//echo 'dobio sam ' . $polje[0] . ' ' . $polje[1];

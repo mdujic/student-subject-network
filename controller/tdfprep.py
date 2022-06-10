@@ -32,15 +32,16 @@ from sklearn.metrics.pairwise import linear_kernel
 cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
 
 indices = pd.Series(df.index, index=df['ISVUsifra']).drop_duplicates()
-
 NUM_OF_RECOMM = 3
 
 def get_recommendations(ISVUsifra, cosine_sim = cosine_sim):
+    if not (ISVUsifra in indices):
+        return df['ISVUsifra'].iloc[[0, 1, 2]]
     idx = indices[ISVUsifra]
     sim_scores = list(enumerate(cosine_sim[idx]))
     sim_scores = sorted(sim_scores, key = lambda x: x[1], reverse = True)
     sim_scores = sim_scores[1:NUM_OF_RECOMM + 1]
-    movie_indices = [i[0] for i in sim_scores]
+    imp_indices = [i[0] for i in sim_scores]
     return df['ISVUsifra'].iloc[movie_indices]
 
 #ID = 92978
