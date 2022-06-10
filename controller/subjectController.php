@@ -17,8 +17,8 @@ class SubjectController extends BaseController
 			$this -> registry -> template -> title = $subject->subjectName;
             $students = $ser->getStudentsOfSubject($subject->subjectID);
             $this -> registry -> template -> students = $students;
+            $this -> registry -> template -> subject = $subject;
 			$this->registry->template->show( 'one_subject' );
-            
 		}else{
 			$this->index();
 		}
