@@ -27,4 +27,4 @@ LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/mdujic/student-sub
 fieldterminator ","
 MATCH (k:Subject), (t:Teacher)
 WHERE k.ISVUsifra = row.ISVUsifra AND t.oib = row.oib
-CREATE (s)-[v:TEACHES]->(k);
+CREATE (t)-[v:TEACHES]->(k);

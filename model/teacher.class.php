@@ -1,20 +1,16 @@
 <?php
 
 
-class Student{
-    protected $JMBAG;
+class Teacher{
     protected $ime, $prezime; 
     protected $spol, $OIB;
-    protected $datum_rodenja;
     protected $email;
     
-    public function __construct($JMBAG, $ime, $prezime, $OIB, $spol, $datum_rodenja, $email){
-        $this -> JMBAG = $JMBAG;
+    public function __construct($ime, $prezime, $OIB, $spol, $email){
         $this -> ime = $ime;
         $this -> prezime = $prezime;   
         $this -> OIB = $OIB;
         $this -> spol = $spol;
-        $this -> datum_rodenja = $datum_rodenja;   
         $this -> email = $email;
     }
 

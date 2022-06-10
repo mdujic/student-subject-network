@@ -17,8 +17,8 @@
 
 	<ul>
 		<li><a href="index.php?rt=subject">Popis svih predmeta</a></li>
-		<li><a href="index.php?rt=subject/mySubjects">Moji predmeti</a></li>
-		<li><a href="index.php?rt=projects/create_project">Kreiraj novi predmet</a></li>
+		<li><a href="index.php?rt=teacher">Popis svih profesora</a></li>
+		<li><a href="index.php?rt=student">Popis svih studenata</a></li>
 		<li><a href="index.php?rt=logout">Odjavi se!</a></li>
 	</ul>
 	

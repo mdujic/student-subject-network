@@ -22,6 +22,44 @@ class Service
 
 		return $arr;
 	}
+
+	function getAllStudents()
+	{
+		try
+		{
+			$em = DB_NEO4J::getConnection();
+			$query = $em->createQuery("MATCH (s:Student) RETURN s");
+			$result = $query->execute();
+		}
+		catch( PDOException $e ) { exit( 'PDO error ' . $e->getMessage() ); }
+		
+		$arr = null;
+		foreach($result as $node) {
+			$arr[] = new Student($node['s']->value('jmbag'), $node['s']->value('ime'), $node['s']->value('prezime'), $node['s']->value('oib'), $node['s']->value('spol'),
+            $node['s']->value('datumRođenja(MM/DD/GG)'), $node['s']->value('aai'));
+        }
+
+		return $arr;
+	}
+
+	function getAllTeachers()
+	{
+		try
+		{
+			$em = DB_NEO4J::getConnection();
+			$query = $em->createQuery("MATCH (s:Teacher) RETURN s");
+			$result = $query->execute();
+		}
+		catch( PDOException $e ) { exit( 'PDO error ' . $e->getMessage() ); }
+		
+		$arr = null;
+		foreach($result as $node) {
+			$arr[] = new Teacher($node['s']->value('ime'), $node['s']->value('prezime'), $node['s']->value('oib'),
+			 $node['s']->value('spol'), $node['s']->value('aai'));
+        }
+
+		return $arr;
+	}
     
 
     function getSubjectById( $id )
@@ -49,16 +87,37 @@ class Service
 		try
 		{
             $em = DB_NEO4J::getConnection();
-			$query = $em->createQuery("MATCH (stud:Student) WHERE stud.jmbag={studentJMBAG} RETURN stud");
+			$query = $em->createQuery("MATCH (s:Student) WHERE s.jmbag={studentJMBAG} RETURN s");
 			$query->setParameter("studentJMBAG", $jmbag_student);
-			$result = $query->execute()[0];
+			$result = $query->execute();
 		}
 		catch( PDOException $e ) { exit( 'PDO error ' . $e->getMessage() ); }
 
 		$stud = null;
 		foreach($result as $node) {
-            $stud = new Student($node["jmbag"], $node["ime"], $node["prezime"], $node["oib"], $node["spol"],
-            $node["datumRođenja"], $node["aai"]); 
+			echo "tu sam";
+            $stud = new Student($node['s']->value('jmbag'), $node['s']->value('ime'), $node['s']->value('prezime'), $node['s']->value('oib'), $node['s']->value('spol'),
+            $node['s']->value('datumRođenja(MM/DD/GG)'), $node['s']->value('aai'));
+        }
+
+		return $stud;
+	}
+
+	function getTeacherById( $oib_teacher )
+	{
+		try
+		{
+            $em = DB_NEO4J::getConnection();
+			$query = $em->createQuery("MATCH (s:Teacher) WHERE s.oib={OIBteacher} RETURN s");
+			$query->setParameter("OIBteacher", $oib_teacher);
+			$result = $query->execute();
+		}
+		catch( PDOException $e ) { exit( 'PDO error ' . $e->getMessage() ); }
+
+		$stud = null;
+		foreach($result as $node) {
+            $stud = new Teacher($node['s']->value('ime'), $node['s']->value('prezime'), $node['s']->value('oib'),
+			$node['s']->value('spol'), $node['s']->value('aai'));
         }
 
 		return $stud;
@@ -83,9 +142,27 @@ class Service
 		return $arr;
 	}
 
-	function getMySubjects( $jmbag_student )
+	function getSubjectsOfTeacher( $oib_teacher )
 	{
 
+		try
+		{
+            $em = DB_NEO4J::getConnection();
+			$query = $em->createQuery("MATCH (s:Subject)--(t:Teacher) WHERE t.oib={OIBteacher} RETURN s");
+			$query->setParameter("OIBteacher", $oib_teacher);
+			$result = $query->execute();
+		}
+		catch( PDOException $e ) { exit( 'PDO error ' . $e->getMessage() ); }
+		$arr = array();
+		foreach($result as $node) {
+            $arr[] = new Subject($node['s']->value('ISVUsifra'), $node['s']->value('imePredmeta'), "", $node['s']->value('semestar'), "",
+    		$node['s']->value('godina'), $node['s']->value('obavezni'));
+        }
+		return $arr;
+	}
+
+	function getMySubjects( $jmbag_student )
+	{
 		try
 		{
             $em = DB_NEO4J::getConnection();
