@@ -13,6 +13,19 @@ echo '<h3 style="color:' . obojaj($subject->status) . '">Status:   ' . $subject-
 ?>
 <p>
     <?php echo $subject->description ?>
+    <h2>Možda želite upisati i sljedeće predmete: </h2>
+    <table>
+    <?php
+	 	foreach($similar_subjects as $predmet){
+			echo '<tr>' .
+			'<td>' . '<a href="index.php?rt=subject/showSubjectId&id_subject=' . $predmet -> subjectID . '">' .
+			$predmet -> subjectName . '</a>' . '</td>' .
+	    	'<td>' . $predmet -> subjectID . '</td>' .
+		    '</tr>';
+		}	
+	?>
+	</table>
+
 </p>
 <h2>Popis upisanih studenata:</h2>
 <table>
