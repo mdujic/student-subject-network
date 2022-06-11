@@ -2,6 +2,29 @@
 
 class Service 
 {
+	//$_POST['ime'], $_POST['prezime'], $_POST['email'], $_POST['oib'], $_POST['spol']
+	function createTeacher($ime, $prezime, $email, $oib, $spol){
+		// Pisanje u neo4j
+		try{
+			$em = DB_NEO4J::getConnection();
+
+			$query = $em->createQuery("CREATE (t:Teacher {aai: {teacherAAI}, ime: {teacherIme}, oib: {teacherOIB}
+				, prezime: {teacherPrezime}, spol: {teacherSpol}})");
+
+			$query->setParameter("teacherOIB", $oib);
+			$query->setParameter("teacherIme", $ime);
+			$query->setParameter("teacherPrezime", $prezime);
+			$query->setParameter("teacherAAI", $email);
+			$query->setParameter("teacherSpol", $spol);
+
+			$result = $query->execute();
+		} catch (Exception $e){
+			return false;
+		}
+		return true;
+	}
+
+
 	//$_POST['naziv'], $_POST['opis'], $_POST['ISVUsifra'], $_POST['semestar'], $_POST['obavezni'], $_POST['status'], $_POST['godina'])
 	function createSubject($naziv, $opis, $ISVUsifra, $semestar, $obavezni, $status, $godina) {
 		// Pisanje u neo4j

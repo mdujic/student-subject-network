@@ -16,4 +16,39 @@
 	?>
 </ul>
 
+<?php
+	if ( $_SESSION['username'] === 'admin') {
+		?>
+			<h2>Unesi novi predmet: </h2>
+			<form method="post" action="<?php echo __SITE_URL . '/index.php?rt=teacher'?>">
+				Ime:
+				<input type="text" name="ime" />
+				<br />
+				<br />
+				Prezime:
+				<input type="text" name="prezime" />
+				<br />
+				<br />
+				Email:
+				<input type="text" name="email" />
+				<br />
+				<br />
+				OIB:
+				<input type="text" name="oib" />
+				<br />
+				<br />
+				<label for="spol">Spol:</label>
+				<select name="spol" id="spol">
+					<option id="spol" name="spol" value="M" selected>M</option>
+					<option id="spol" name="spol" value="Ž" >Ž</option>
+				</select>
+				<br />
+				<br />
+				<br />
+				<button type="submit">Unesi novog profesora!</button>
+			</form>
+		<?php
+	}
+?>
+
 <?php require_once __SITE_PATH . '/view/_footer.php'; ?>
