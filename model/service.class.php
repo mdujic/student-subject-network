@@ -2,6 +2,49 @@
 
 class Service 
 {
+	//$_POST['naziv'], $_POST['opis'], $_POST['ISVUsifra'], $_POST['semestar'], $_POST['obavezni'], $_POST['status'], $_POST['godina'])
+	function createSubject($naziv, $opis, $ISVUsifra, $semestar, $obavezni, $status, $godina) {
+		// Pisanje u neo4j
+		try{
+			$em = DB_NEO4J::getConnection();
+
+			$query = $em->createQuery("CREATE (s:Subject {ISVUsifra: {subjectSifra}, godina: {subjectGodina}, imePredmeta: {subjectNaziv}
+				, obavezni: {subjectObavezni}, semestar: {subjectSemestar}})");
+
+			$query->setParameter("subjectSifra", $ISVUsifra);
+			$query->setParameter("subjectGodina", $godina);
+			$query->setParameter("subjectNaziv", $naziv);
+			$query->setParameter("subjectObavezni", $obavezni);
+			$query->setParameter("subjectSemestar", $semestar);
+
+			$result = $query->execute();
+		} catch (Exception $e){
+			return false;
+		}
+
+		// Pisanje u mongo
+		try{
+			$m = DB_MONGO::getConnection();
+
+			$bulk = new MongoDB\Driver\BulkWrite;
+	
+			$document = ['ISVUsifra' => $ISVUsifra,
+						'imePredmeta' => $naziv,
+						'semestar' => $semestar,
+						'obavezni' => $obavezni,
+						'godina' => $godina,
+						'opis' => $opis,
+						'status' => $status,
+						];
+				
+			$_id1 = $bulk->insert($document);
+	
+			$result = $m->executeBulkWrite('nbp.subject', $bulk);
+		} catch (Exception $e){
+			return false;
+		}
+		return true;
+	}
 
 
 	function getAllSubjects()
