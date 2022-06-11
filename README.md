@@ -8,10 +8,10 @@ Installation goes in few steps because we need to install docker and two databas
 1. Install [php](https://web.math.pmf.unizg.hr/nastava/rp2d/slideovi/Predavanje-01-Uvod.pdf)
 2. Installation of composer2 
    ```
-   $ sudo apt install composer
+   sudo apt install composer
 
    # We need to install composer2
-   $ curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer2
+   curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer2
    ```
 
    Now we can use composer2: _composer2 \<some command\>_  
@@ -20,45 +20,68 @@ Installation goes in few steps because we need to install docker and two databas
 4. Move to project directory `cd student-subejct-network`
 5. Run composer2 in project (`composer.json` must exist)
    ```
-   $ composer2 install
+   composer2 install
    ```
 6. [Install docker](https://www.simplilearn.com/tutorials/docker-tutorial/how-to-install-docker-on-ubuntu)
 7. (Optional) Manage docker as non root user 
    ```
    # Create group that can run docker without sudo
-   $ sudo groupadd docker
+   sudo groupadd docker
    
    
    # Add yourself to that group
-   $ sudo usermod -aG docker $USER
+   sudo usermod -aG docker $USER
    
    
    # Test everything is working
-   $  docker run hello-world
+   docker run hello-world
    ```
 8. Install and lunch docker neo4j database container
    ```
-   $ docker run --name neo4j -p 7474:7474 -p 7687:7687 -d -v $HOME/neo4j/data:/data -v $HOME/neo4j/logs:/logs -v $HOME/neo4j/import:/var/lib/neo4j/import -v $HOME/neo4j/plugins:/plugins --env NEO4J_AUTH=neo4j/nbp neo4j:3.4.18
+   docker run --name neo4j -p 7474:7474 -p 7687:7687 -d -v $HOME/neo4j/data:/data -v $HOME/neo4j/logs:/logs -v $HOME/neo4j/import:/var/lib/neo4j/import -v $HOME/neo4j/plugins:/plugins --env NEO4J_AUTH=neo4j/nbp neo4j:3.4.18
    ```
 9. Install php-mongodb
    ```
    # Install php7.4-monogdb
-   $ sudo apt install php7.4-mongodb
+   sudo apt install php7.4-mongodb
    
    
    # Restart apache2 server so installation take effect
-   $ sudo systemctl restart apache2
+   sudo systemctl restart apache2
    ```
 10. Install and lunch docker mongodb container
-   ```
-   $ docker run -d -p 27017:27017 --name mongo_nbp -v mongo-data:/data/db mongo:latest
-   ```
-   
+    ```
+    docker run -d -p 27017:27017 --name mongo_nbp -v mongo-data:/data/db mongo:latest
+    ```
+   ### Setup databases
+
+   #### Neo4j
+
+   11. To setup neo4j database go to [localhost:7474](http://localhost:7474)
+   12. Copy, paste and run commands from ./data/neo4j_unos (_5 commands total_)
+
+   #### MongoDB
+
+   13. Go to `data` directory
+   14. Run 
+       ```
+       mongoimport -d nbp -c subject --type csv --file mongo_subject.csv --headerline
+       ```
+   ### Setup python enviroment
+
+   15. To setup all python packages that are needed for app to work run:
+       ```
+       pip3 install -r requirements.txt
+       ```
+   16. (Optional) To test that python is correctly insalled go to `controller` directory and run:
+       ```
+       python3 tdfprep.py 45691
+       # Expected output: 92978/45704/61518
+       ```
 ## Run project
 If you did't run mongo and neo4j container go and do 8. and 10. step from [Setup enviroment](#setup-enviroment)
 1. Move this project to your `public_html` directory
 2. Go in browser on [localhost/~username/student-subject-directory](http://localhost/~username/student-subject-directory)
 
-sudo docker exec -it mongo_nbp mongo
 
 
