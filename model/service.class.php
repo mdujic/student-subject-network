@@ -140,10 +140,10 @@ class Service
         
 		}
 		catch( Exception $e ) { exit( 'PDO error ' . $e->getMessage() ); }
-			$sub = null;
-			foreach($cursor as $document) {
-				$sub = new Subject($document->ISVUsifra, $document->imePredmeta, $document->opis, $document->semestar, $document->status, $document->godina, $document->obavezni);
-        }
+		$sub = null;
+		foreach($cursor as $document) {
+			$sub = new Subject($document->ISVUsifra, $document->imePredmeta, $document->opis, $document->semestar, $document->status, $document->godina, $document->obavezni);
+    	}	
 
 		return $sub;
 	}
@@ -283,6 +283,44 @@ class Service
 		return $arr;
 	}
 
+	function signTeacherToSubject($teacher_oib, $sub_isvu){
+		try{
+			$em = DB_NEO4J::getConnection();
+			$query = $em -> createQuery("match (prof:Teacher), (sub:Subject)
+				where prof.oib = {teacherOIB} and sub.ISVUsifra = {isvuSifra}
+				create (prof) - [r:TEACHES] -> (sub)
+				return type(r)");
+			$query -> setParameter("teacherOIB", strval($teacher_oib));
+			$query -> setParameter("isvuSifra", strval($sub_isvu));
+			$result = $query -> execute();
+		} catch (Exception $e){
+			return false;
+		}
+		return true;
+	}
+
+	function signStudentToSubject($student_jmbag, $sub_isvu){
+		$upisani = $this -> getStudentsOfSubject($sub_isvu);
+		foreach($upisani as $ts){
+			if(strval($ts -> JMBAG) === strval($student_jmbag)){
+				return true; //vec je upisan na tom kolegiju
+			}
+		}
+		
+		try{
+			$em = DB_NEO4J::getConnection();
+			$query = $em -> createQuery("match (stud:Student), (sub:Subject)
+				where stud.jmbag = {studJMBAG} and sub.ISVUsifra = {isvuSifra}
+				create (stud) - [r:ENROLLED_IN] -> (sub)
+				return type(r)");
+			$query -> setParameter("studJMBAG", strval($student_jmbag));
+			$query -> setParameter("isvuSifra", strval($sub_isvu));
+			$result = $query -> execute();
+		} catch (Exception $e){
+			return false;
+		}
+		return true;
+	}
 
 	
 };

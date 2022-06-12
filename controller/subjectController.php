@@ -38,9 +38,6 @@ class SubjectController extends BaseController
 		$ser = new Service();
 		if(isset($_GET['id_subject'])){
 			$subject = $ser->getSubjectById($_GET['id_subject']);
-			echo "tu sam doso i";
-			echo $subject->subjectName;
-			echo "naziv premetea";
 			$this -> registry -> template -> title = $subject->subjectName;
             $students = $ser->getStudentsOfSubject($subject->subjectID);
             $this -> registry -> template -> students = $students;
@@ -64,6 +61,8 @@ class SubjectController extends BaseController
 			$this->index();
 		}
 	}
+
+	
 
 
 }

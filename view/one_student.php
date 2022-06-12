@@ -4,7 +4,7 @@
 <div><b>Email: </b><?php echo $student->email ?></div>
 <div><b>Datum rođenja: </b><?php echo $student->datum_rodenja ?></div>
 <div><b>Spol: </b><?php echo $student->spol ?></div>
-<div><b>OIB: </b><?php echo $student->OIB ?></div>
+<div><b>JMBAG: </b><?php echo $student->JMBAG ?></div>
 <h2>Popis upisanih predmeta: </h2>
 <table>
 <tr><th>Ime predmeta</th><th>ISVU šifra</th><th>Kolegij prijatelj</th></tr>
