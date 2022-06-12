@@ -24,6 +24,29 @@ class Service
 		return true;
 	}
 
+	function createStudent($aai, $datumRodenja, $ime, $jmbag, $mjesto_rodenja, $oib, $prezime, $spol){
+		// Pisanje u neo4j
+		try{
+			$em = DB_NEO4J::getConnection();
+			$query = $em -> createQuery("CREATE (s:Student {aai: {AAI}, datumRodenja: {datum}, ime: {ime}, 
+			 jmbag: {jmbag}, mjestoRodenja: {mjesto}, oib: {oib}, prezime: {prezime}, spol: {spol}})");
+			$query->setParameter("oib", $oib);
+			$query->setParameter("ime", $ime);
+			$query->setParameter("prezime", $prezime);
+			$query->setParameter("AAI", $aai);
+			$query->setParameter("spol", $spol);
+			$query->setParameter("datum", $datumRodenja);
+			$query->setParameter("mjesto", $mjesto_rodenja);
+			$query->setParameter("jmbag", $jmbag);			
+			$result = $query->execute();
+		}catch (Exception $e){
+			return false;
+		}
+
+		return true;
+	}
+
+
 
 	//$_POST['naziv'], $_POST['opis'], $_POST['ISVUsifra'], $_POST['semestar'], $_POST['obavezni'], $_POST['status'], $_POST['godina'])
 	function createSubject($naziv, $opis, $ISVUsifra, $semestar, $obavezni, $status, $godina) {
@@ -102,7 +125,7 @@ class Service
 		$arr = null;
 		foreach($result as $node) {
 			$arr[] = new Student($node['s']->value('jmbag'), $node['s']->value('ime'), $node['s']->value('prezime'), $node['s']->value('oib'), $node['s']->value('spol'),
-            $node['s']->value('datumRođenja(MM/DD/GG)'), $node['s']->value('aai'));
+            $node['s']->value('datumRodenja'), $node['s']->value('aai'));
         }
 
 		return $arr;
@@ -162,7 +185,7 @@ class Service
 		$stud = null;
 		foreach($result as $node) {
             $stud = new Student($node['s']->value('jmbag'), $node['s']->value('ime'), $node['s']->value('prezime'), $node['s']->value('oib'), $node['s']->value('spol'),
-            $node['s']->value('datumRođenja(MM/DD/GG)'), $node['s']->value('aai'));
+            $node['s']->value('datumRodenja'), $node['s']->value('aai'));
         }
 
 		return $stud;
@@ -202,7 +225,7 @@ class Service
 		$arr = array();
 		foreach($result as $node) {
             $arr[] = new Student($node['stud']->value('jmbag'), $node['stud']->value("ime"), $node['stud']->value("prezime"), $node['stud']->value("oib"), $node['stud']->value("spol"),
-			$node['stud']->value("datumRođenja(MM/DD/GG)"), $node['stud']->value("aai"));
+			$node['stud']->value("datumRodenja"), $node['stud']->value("aai"));
         }
 		return $arr;
 	}
