@@ -20,7 +20,7 @@
 <?php
 	if ( $_SESSION['username'] === 'admin') {
 		?>
-			<h2>Unesi novi predmet: </h2>
+			<h2>Unesi novog profesora: </h2>
 			<form method="post" action="<?php echo __SITE_URL . '/index.php?rt=teacher'?>">
 				Ime:
 				<input type="text" name="ime" />

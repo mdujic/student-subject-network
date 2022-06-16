@@ -57,7 +57,7 @@ class Service
 			$query = $em->createQuery("CREATE (s:Subject {ISVUsifra: {subjectSifra}, godina: {subjectGodina}, imePredmeta: {subjectNaziv}
 				, obavezni: {subjectObavezni}, semestar: {subjectSemestar}})");
 
-			$query->setParameter("subjectSifra", $ISVUsifra);
+			$query->setParameter("subjectSifra", strval($ISVUsifra));
 			$query->setParameter("subjectGodina", $godina);
 			$query->setParameter("subjectNaziv", $naziv);
 			$query->setParameter("subjectObavezni", $obavezni);

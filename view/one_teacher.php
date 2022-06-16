@@ -6,7 +6,7 @@
 <div><b>Email: </b><?php echo $teacher->email ?></div>
 <div><b>Spol: </b><?php echo $teacher->spol ?></div>
 <div><b>OIB: </b><?php echo $teacher->OIB ?></div>
-<h2>Popis predmeta kojih predaje: </h2>
+<h2>Popis predmeta koje predaje: </h2>
 <table>
 <tr><th>Ime predmeta</th><th>ISVU šifra</th></tr>
 

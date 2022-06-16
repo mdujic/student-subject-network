@@ -25,6 +25,8 @@ ret = getData()
 df = pd.read_json(ret)
 df = df[['ISVUsifra', 'imePredmeta', 'opis']]
 df = df[df.opis != 'Nema opis']
+df.reset_index(drop = True, inplace = True)
+
 tfidf = TfidfVectorizer()
 tfidf_matrix = tfidf.fit_transform(df['opis'])
     
@@ -53,9 +55,5 @@ for i in range(1, NUM_OF_RECOMM):
 print(ime)
 #print('asdasdas')
 #print(df) 
-
-
-
-
 
 
